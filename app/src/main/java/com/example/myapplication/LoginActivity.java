@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //If already logged in go straight to main activity.
         if (ParseUser.getCurrentUser() != null) {
-            goMainActivity();
+            goToFeed();
         }
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
@@ -66,18 +66,16 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                goMainActivity();
+                goToFeed();
                 //Why is this toast not coming up?
                 Toast.makeText(LoginActivity.this, "Login was a Sucess",Toast.LENGTH_LONG );
 
             }
         });
-
-
     }
 
-    private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class );
+    public void goToFeed() {
+        Intent i = new Intent(this, FeedActivity.class );
         startActivity(i);
         finish();
     }
