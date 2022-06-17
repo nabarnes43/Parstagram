@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE= 10;
     protected FeedAdapter adapter;
     protected List<Post> allPosts;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         btnCaptureImage = findViewById(R.id.btnCaptureImage);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
 
         // initialize the array that will hold posts and create a PostsAdapter
@@ -104,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
@@ -112,12 +113,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.action_compose:
                         // do something here
+                        goToCompose();
                         return true;
                     case R.id.action_home:
                         // do something here
+                        goToFeed();
                         return true;
                     case R.id.action_profile:
                         // do something here
+                        goToFeed();
                         return true;
                     default: return true;
                 }
@@ -209,6 +213,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToFeed() {
         Intent i = new Intent(this, FeedActivity.class );
+        startActivity(i);
+        finish();
+    }
+
+    public void goToCompose() {
+        Intent i = new Intent(this,MainActivity.class );
         startActivity(i);
         finish();
     }
