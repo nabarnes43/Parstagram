@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+
 import org.parceler.Parcel;
 import org.parceler.Parcels;
 
@@ -30,13 +32,16 @@ public class PostDetail extends AppCompatActivity {
 
         tvDetailUsername = (TextView) findViewById(R.id.tvDetailUsername);
         ivDetailPost = (ImageView) findViewById(R.id.ivDetailPost);
-        tvDetailDescription =(TextView) findViewById(R.id.tvDescription);
+        tvDetailDescription =(TextView) findViewById(R.id.tvDetailDescription);
         tvDetailTimeStamp = (TextView) findViewById(R.id.tvDetailTimeStamp);
 
 
         Post post = (Post) Parcels.unwrap(getIntent().getParcelableExtra("post"));
-
         tvDetailUsername.setText(post.getUser().getUsername());
+        String L = post.getDescription();
+        tvDetailDescription.setText(L);
+        Glide.with(PostDetail.this).load(post.getImage().getUrl()).into(ivDetailPost);
+
 
 
     }
