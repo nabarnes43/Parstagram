@@ -1,16 +1,22 @@
-package com.example.myapplication;
+package com.example.myapplication.Fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.myapplication.FeedAdapter;
 import com.example.myapplication.Models.Post;
+import com.example.myapplication.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -19,37 +25,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FeedActivity extends AppCompatActivity {
-
-    private static final String TAG = "FeedActivity";
-    RecyclerView rvPost;
-    protected FeedAdapter adapter;
-    protected List<Post> allPosts;
+public class PostsFragment extends Fragment {
+    public static final String TAG = "PostFragment";
     private SwipeRefreshLayout swipeContainer;
-    JsonHttpResponseHandler client;
+    private FeedAdapter adapter;
+    private RecyclerView rvPost;
+    List<Post> allPosts;
 
-
-
+    public PostsFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed);
-        Log.e(TAG, "Made it");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_posts, container, false);
+    }
 
-        rvPost = findViewById(R.id.rvPost);
-
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        rvPost = view.findViewById(R.id.rvPost);
+        //Steps to use the recylcer view
+        //0. Create layout for one row in the list
+        //1. Create the adapter
         allPosts = new ArrayList<>();
-        adapter = new FeedAdapter(this, allPosts);
-
-        // set the adapter on the recycler view
+        adapter = new FeedAdapter(getContext(), allPosts);
+        //2. Create the data source
+        //3. Set the adapter on the recycler view
         rvPost.setAdapter(adapter);
-        // set the layout manager on the recycler view
-        rvPost.setLayoutManager(new LinearLayoutManager(this));
+        //4. set the layout manager on the recycler view
+        rvPost.setLayoutManager(new LinearLayoutManager(getContext()));
         queryPost();
-        // Lookup the swipe container view
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -65,6 +74,7 @@ public class FeedActivity extends AppCompatActivity {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+
     }
 
     public void fetchTimelineAsync(int i) {
@@ -72,10 +82,8 @@ public class FeedActivity extends AppCompatActivity {
         // `client` here is an instance of Android Async HTTP
         adapter.clear();
         queryPost();
-        swipeContainer.setRefreshing(false);
+
     }
-
-
 
     private void queryPost() {
 
@@ -96,20 +104,15 @@ public class FeedActivity extends AppCompatActivity {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-
                 // for debugging purposes let's print every post description to logcat
                 for (Post post : posts) {
                     Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
                 }
-
                 // save received posts to list and notify adapter of new data
                 allPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
+                swipeContainer.setRefreshing(false);
             }
         });
-
     }
-
-
-
 }

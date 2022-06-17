@@ -32,19 +32,25 @@
         android:id="@+id/tvDetailUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/ivDetailPost"
+        android:layout_marginStart="20dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="36dp" />
+        app:layout_constraintBottom_toTopOf="@id/ivDetailPost"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvDetailTimeStamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/ivDetailPost"
+        android:layout_marginEnd="20dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="323dp"
-        tools:layout_editor_absoluteY="36dp" />
+        app:layout_constraintBottom_toTopOf="@id/ivDetailPost"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
