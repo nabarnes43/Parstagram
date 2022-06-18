@@ -35,11 +35,11 @@ public class ProfileFragment extends BassFragment {
     TextView tvProfileUsername;
     ImageView ivProfilePhoto;
 
-    public User user =  (User) User.getCurrentUser();
+    public User user = (User) User.getCurrentUser();
+
     public ProfileFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +49,6 @@ public class ProfileFragment extends BassFragment {
 
 
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -73,17 +72,15 @@ public class ProfileFragment extends BassFragment {
         });
     }
 
-   public void displayUserInfo ( ) {
+    public void displayUserInfo() {
         tvProfileUsername.setText(user.getUsername());
         ParseFile profilePhoto = user.getProfilePhoto();
-        if (profilePhoto !=null) {
+        if (profilePhoto != null) {
             Glide.with(getContext()).load(user.getProfilePhoto().getUrl()).into(ivProfilePhoto);
         } else {
-            Toast.makeText(getContext(), "this Profile photo does not exist for user " + user.getUsername(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "this Profile photo does not exist for user " + user.getUsername(), Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -82,11 +82,9 @@ public class PostsFragment extends Fragment {
         // `client` here is an instance of Android Async HTTP
         adapter.clear();
         queryPost();
-
     }
 
     private void queryPost() {
-
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key

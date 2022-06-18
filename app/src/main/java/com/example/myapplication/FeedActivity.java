@@ -29,20 +29,14 @@ public class FeedActivity extends AppCompatActivity {
     JsonHttpResponseHandler client;
 
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         Log.e(TAG, "Made it");
-
         rvPost = findViewById(R.id.rvPost);
-
-
         allPosts = new ArrayList<>();
         adapter = new FeedAdapter(this, allPosts);
-
         // set the adapter on the recycler view
         rvPost.setAdapter(adapter);
         // set the layout manager on the recycler view
@@ -74,7 +68,6 @@ public class FeedActivity extends AppCompatActivity {
         queryPost();
         swipeContainer.setRefreshing(false);
     }
-
 
 
     private void queryPost() {
@@ -109,7 +102,6 @@ public class FeedActivity extends AppCompatActivity {
         });
 
     }
-
 
 
 }
